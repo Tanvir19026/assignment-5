@@ -31,7 +31,7 @@ function searchMeal(e) {
       .then((res) => res.json())
       .then((data) => {
         resultHeading.innerHTML = `<h2>Search Result For ${term} : </h2>`;
-
+       // meal name display in hover when search key word matched...
         if (data.meals === null) {
           resultHeading.innerHTML = `<h2> There are No Search results for ${term}</h2>`;
         } else {
