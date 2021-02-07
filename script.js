@@ -1,10 +1,12 @@
 const search = document.getElementById("search");
 const submit = document.getElementById("submit");
-const mealsEl = document.getElementById("meals");
+const mealsElement = document.getElementById("meals");
 const resultHeading = document.getElementsByClassName(
   "result-heading"
 );
-const single_mealEl = document.getElementById(
+
+//single_mealEl is method of showing meal-information in website bottom part by click,,
+const single_mealElement = document.getElementById(
   "single-meal"
 );
 
@@ -13,7 +15,7 @@ function searchMeal(e) {
   e.preventDefault();
 
   // Clear single Meal
-  single_mealEl.innerHTML = "";
+  single_mealElement.innerHTML = "";
 
   //get search Term
   const term = search.value;
@@ -22,6 +24,9 @@ function searchMeal(e) {
   if (term.trim()) {
     fetch(
       `https://www.themealdb.com/api/json/v1/1/search.php?s=${term}`
+
+      //access all meal by searching word
+
     )
       .then((res) => res.json())
       .then((data) => {
@@ -30,20 +35,24 @@ function searchMeal(e) {
         if (data.meals === null) {
           resultHeading.innerHTML = `<h2> There are No Search results for ${term}</h2>`;
         } else {
-          mealsEl.innerHTML = data.meals
+          mealsElement.innerHTML = data.meals
             .map(
               (meal) => `
                  <div class="meal">
+                 
                  <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
-                 <div class="meal-info" data-mealID="${meal.idMeal}">
+                  <div class="meal-info" data-mealID="${meal.idMeal}">  
                     <h3>${meal.strMeal}</h3>
                  </div>
                  </div>
                 `
+                
+                // meal name display in hover way
             )
             .join("");
         }
       });
+      
 
     //Clear Search Term
     search.value = "";
@@ -67,9 +76,11 @@ function getMealById(mealID) {
 
 
 
-//Add meal to DOM
-// for meal-information 
 
+// for meal-information in given bottom of the page in website...
+
+
+//meal-info part
 function addMealToDOM(meal) {
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
@@ -84,7 +95,8 @@ function addMealToDOM(meal) {
     }
   }
 
-  single_mealEl.innerHTML = `
+  single_mealElement.innerHTML = `
+  
   <div class="single-meal">
   <h1>${meal.strMeal}</h1>
   <img src="${meal.strMealThumb}" alt="${meal.strMeal}"/>
@@ -106,7 +118,7 @@ function addMealToDOM(meal) {
 //Event Listerner
 submit.addEventListener("click", searchMeal);
 
-mealsEl.addEventListener("click", (e) => {
+mealsElement.addEventListener("click", (e) => {
   const mealInfo = e.path.find((item) => {
     if (item.classList) {
       return item.classList.contains("meal-info");
