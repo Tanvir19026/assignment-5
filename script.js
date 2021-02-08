@@ -5,7 +5,9 @@ const resultHeading = document.getElementsByClassName(
   "result-heading"
 );
 
-//single_mealEl is method of showing meal-information in website bottom part by click,,
+//single_mealElement is method of showing meal-information in website top part by click,,
+// meals  features
+
 const single_mealElement = document.getElementById(
   "single-meal"
 );
@@ -31,23 +33,28 @@ function searchMeal(e) {
       .then((res) => res.json())
       .then((data) => {
         resultHeading.innerHTML = `<h2>Search Result For ${term} : </h2>`;
-       // meal name display in hover when search key word matched...
         if (data.meals === null) {
           resultHeading.innerHTML = `<h2> There are No Search results for ${term}</h2>`;
         } else {
           mealsElement.innerHTML = data.meals
             .map(
               (meal) => `
-                 <div class="meal">
+            
+              <div class="meal" >
                  
-                 <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
-                  <div class="meal-info" data-mealID="${meal.idMeal}">  
-                    <h3>${meal.strMeal}</h3>
-                 </div>
-                 </div>
+              <img src="${meal.strMealThumb}" alt="${meal.strMeal}" />
+             
+          
+               <div class="meal-info"  data-mealID="${meal.idMeal}">  
+                 <h3>${meal.strMeal}</h3>
+                 
+              </div>
+              </div>
+              
+              
                 `
+                // by click name of the meal can see meal-info
                 
-                // meal name display in hover way
             )
             .join("");
         }
@@ -57,7 +64,7 @@ function searchMeal(e) {
     //Clear Search Term
     search.value = "";
   } else {
-    
+   alert("After search,click on name of the mail for information ")
   }
 }
 
@@ -77,10 +84,10 @@ function getMealById(mealID) {
 
 
 
-// for meal-information in given bottom of the page in website...
+// for meal-information in given top of the page in website...by click name of the meal
 
 
-//meal-info part
+//ingredients... show when click on meals-name
 function addMealToDOM(meal) {
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
@@ -95,6 +102,8 @@ function addMealToDOM(meal) {
     }
   }
 
+
+  // meal-info part show when click on name of the meal
   single_mealElement.innerHTML = `
   
   <div class="single-meal">
@@ -128,7 +137,7 @@ mealsElement.addEventListener("click", (e) => {
   });
   if (mealInfo) {
     const mealID = mealInfo.getAttribute(
-      "data-mealid"
+      "data-mealID"
     );
     getMealById(mealID);
   }
