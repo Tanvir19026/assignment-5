@@ -64,7 +64,7 @@ function searchMeal(e) {
     //Clear Search Term
     search.value = "";
   } else {
-   alert("After search,click on name of the mail for information ")
+   alert("After search,click on name of the meal for information ")
   }
 }
 
